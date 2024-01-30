@@ -1,0 +1,80 @@
+Write a program to demonstrate dependency injection via setter
+method.
+
+
+
+CODE:
+a) Data.java
+package sat;
+public class dat {
+public String name;
+public int roll_no;
+public String addr;
+public String getname()
+{
+return name;
+}
+public void setname(String name)
+{
+this.name=name;
+}
+public int getroll_no()
+{
+return roll_no;
+}
+public void setroll_no(int roll_no)
+34
+{
+this.roll_no=roll_no;
+}
+public String getaddr()
+{
+return addr;
+}
+public void setaddr(String addr)
+{
+this.addr=addr;
+}
+public void dis()
+{
+System.out.println("NAME: "+name+"\nROLL NO:
+"+roll_no+"\nADDRESS: "+addr+"\n");
+}
+}
+b) Main.java
+package sat;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.xml.XmlBeanFactory;
+import org.springframework.core.io.*;
+@SuppressWarnings("deprecation")
+public class mai {
+public static void main(String args[])
+{
+Resource r=new ClassPathResource("dataa.xml");
+BeanFactory factory=new XmlBeanFactory(r);
+dat e=(dat)factory.getBean("obj");
+e.dis();
+}
+}
+c) Data.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema￾instance"
+35
+xmlns:p="http://www.springframework.org/schema/p"
+xsi:schemaLocation="http://www.springframework.org/sc
+hema/beans
+http://www.springframework.org/schema/beans/springbeans-3.0.xsd">
+<bean id="obj" class="sat.dat">
+<property name="name">
+<value>Tony Stark</value>
+</property>
+<property name="roll_no">
+<value>27</value>
+</property>
+<property name="addr">
+<value>California</value>
+</property>
+</bean>
+</beans>

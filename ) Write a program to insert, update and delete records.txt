@@ -1,0 +1,125 @@
+6A) Write a program to insert, update and delete records
+from the given table. (Employee Table-Id ,Name, Age)
+CODE:
+Create a database in MySQL and create table named in that
+database with attributes id int , name varchar(30) and age int.
+a. employee.java
+package something.datapro1;
+public class employee {
+private int id;
+private String name;
+private int age;
+public employee(int id, String name, int age) {
+this.id = id;
+this.name =
+name;
+this.age =
+age;
+}
+public int getId() {
+return id;
+}
+public void setId(int id) {
+this.id = id;
+}
+public String getName() {
+52
+return name;
+}
+public void setName(String name) {
+this.name = name;
+}
+public int getAge() {
+return age;
+}
+public void setAge(int age) {
+this.age = age;
+}
+b. EmployeeDao.java
+package something.datapro1;
+import org.springframework.jdbc.core.JdbcTemplate;
+public class EmployeeDao {
+private JdbcTemplate jdbcTemplate;
+public void setJdbcTemplate(JdbcTemplate jdbcTemplate) {
+this.jdbcTemplate = jdbcTemplate;
+}
+public int saveEmployee(employee e){
+String query="insert into employee_27
+values('"+e.getId()+"','"+e.getName()+"','"+e.getAge()+"')";
+return jdbcTemplate.update(query);
+}
+public int updateEmployee(employee e){
+53
+String query="update employee_27 set
+name='"+e.getName()+"',age='"+e.getAge()+"' where
+id='"+e.getId()+"' ";
+return jdbcTemplate.update(query);
+}
+public int deleteEmployee(employee e){
+String query="delete from employee_27 where
+id='"+e.getId()+"' ";
+return jdbcTemplate.update(query);
+}
+}
+c. App.java
+package something.datapro1;
+import
+org.springframework.context.ApplicationContext
+; import
+org.springframework.context.support.ClassPathXmlApplicatio
+nContex t;
+public class App
+{
+public static void main( String[] args )
+{
+ApplicationContext ctx=new
+ClassPathXmlApplicationContext("dbd.xml");
+54
+EmployeeDao
+dao=(EmployeeDao)ctx.getBean("edao");
+dao.saveEmployee(new employee(1,"Atharva",21));
+dao.saveEmployee(new employee(2,"Tony",48));
+dao.saveEmployee(new employee(3,"Jarvis",50));
+System.out.print("DATA INSERTED");
+dao.updateEmployee(new employee(1,"Atharva",20));
+System.out.print("DATA UPDATED");
+System.out.print("DATA
+DELETED");
+employee e=new employee(0,
+null, 0); e.setId(3);
+dao.deleteEmployee(e);
+}
+}
+d. dbd.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns = "http://www.springframework.org/schema/beans"
+xmlns:xsi = "http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation =
+55
+"http://www.springframework.org/schema/beans
+http://www.springframework.org/schema/beans/spring￾beans-
+3.0. xsd ">
+<bean id="dataSource"
+class="org.springframework.jdbc.datasource.DriverManagerDa
+ta Source">
+<property name="driverClassName" value =
+"com.mysql.jdbc.Driver" />
+<property name="url" value =
+"jdbc:mysql://localhost:3306/java" />
+<property name="username" value = "COOLBOy" />
+<property name="password" value = "hailhydra" />
+</bean>
+<bean id = "jdbcTemplate" class =
+"org.springframework.jdbc.core.JdbcTemplate">
+<property name = "dataSource" ref = "dataSource" />
+</bean>
+<bean id="edao" class="something.datapro1.EmployeeDao">
+<property name="jdbcTemplate" ref="jdbcTemplate"></property>
+</bean>
+</beans>
+OUTPUT:
+Data inserted
+56
+Data updated
+Data deleted
+5

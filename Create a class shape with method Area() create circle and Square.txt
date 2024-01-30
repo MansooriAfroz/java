@@ -1,0 +1,117 @@
+Create a New Project:
+
+Open Eclipse IDE.
+Go to File > New > Java Project.
+Enter a project name (e.g., ShapeProject) and click Finish.
+Create Shape Interface:
+
+Inside the src folder, right-click and create a new package, let's name it something.
+Inside the something package, create a new Java Interface Shape.java.
+java
+Copy code
+// Shape.java
+package something;
+
+public interface Shape {
+    void area();
+}
+Create Circle Class:
+
+Inside the something package, create a new Java class Circle.java.
+java
+Copy code
+// Circle.java
+package something;
+
+public class Circle implements Shape {
+    private double radius;
+
+    public Circle(double radius) {
+        this.radius = radius;
+    }
+
+    @Override
+    public void area() {
+        double circleArea = Math.PI * radius * radius;
+        System.out.println("Area of Circle: " + circleArea);
+    }
+}
+Create Square Class:
+
+Inside the something package, create a new Java class Square.java.
+java
+Copy code
+// Square.java
+package something;
+
+public class Square implements Shape {
+    private double side;
+
+    public Square(double side) {
+        this.side = side;
+    }
+
+    @Override
+    public void area() {
+        double squareArea = side * side;
+        System.out.println("Area of Square: " + squareArea);
+    }
+}
+Create BoundedShape Class:
+
+Inside the something package, create a new Java class BoundedShape.java.
+java
+Copy code
+// BoundedShape.java
+package something;
+
+import java.util.ArrayList;
+import java.util.Scanner;
+
+public class BoundedShape<T extends Shape> {
+    private final Scanner scanner = new Scanner(System.in);
+    private final ArrayList<T> shapes = new ArrayList<>();
+
+    public void addShape(T shape) {
+        shapes.add(shape);
+    }
+
+    public void displayAreas() {
+        for (T shape : shapes) {
+            shape.area();
+        }
+    }
+
+    public double getUserInput(String prompt) {
+        System.out.print(prompt);
+        return scanner.nextDouble();
+    }
+}
+Create Main Class:
+
+Inside the something package, create a new Java class Main.java.
+java
+Copy code
+// Main.java
+package something;
+
+public class Main {
+    public static void main(String[] args) {
+        BoundedShape<Shape> boundedShape = new BoundedShape<>();
+
+        double radius = boundedShape.getUserInput("Enter the radius of the circle: ");
+        Circle circle = new Circle(radius);
+
+        double side = boundedShape.getUserInput("Enter the side of the square: ");
+        Square square = new Square(side);
+
+        boundedShape.addShape(circle);
+        boundedShape.addShape(square);
+
+        boundedShape.displayAreas();
+    }
+}
+Run the Program:
+
+Right-click on Main.java and select Run As > Java Application.
+You should see the areas of the circle and square printed in the console.

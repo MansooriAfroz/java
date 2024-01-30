@@ -1,0 +1,55 @@
+Q5C) Create a business class multiplier (int a, int b) which
+returns product of a and b create an aspect
+AdderAfterReturnAspect use After-returning advice.
+CODE:
+a. multiplier.java
+package something.pro3;
+46
+import org.springframework.stereotype.Component;
+@Component
+public class multiplier {
+public int mul(int a,int b)
+{
+return a*b;
+}
+}
+a. AdderAfterReturnAspect.java
+package something.pro3;
+import org.aspectj.lang.annotation.After;
+import org.aspectj.lang.annotation.AfterReturning;
+import org.aspectj.lang.annotation.Before; import
+org.aspectj.lang.annotation.Aspect; import
+org.springframework.context.annotation.EnableAspectJAutoProx y;
+import org.springframework.stereotype.Component;
+@Compon
+ent
+@Aspect
+@EnableAspectJAutoProxy
+public class AdderAfterReturnAspect {
+@AfterReturning(pointcut="execution(*
+something.pro3.multiplier.*(..))", returning="retVal")
+public void afterreturning(Object retVal)
+throws Throwable
+{
+System.out.println("Multiplication
+47
+is:"+retVal+"");
+}
+}
+a. App.java
+package something.pro3;
+import org.springframework.context.annotation.AnnotationConfigAppli
+cationContext;
+import org.springframework.context.support.AbstractApplicationConte
+xt;
+public class App
+{
+public static void main( String[] args )
+{
+AbstractApplicationContext context = new
+AnnotationConfigApplicationContext(AppConfig.class);
+multiplier
+m=context.getBean("multiplier",multiplier.class);
+m.mul(5, 5);
+}
+}

@@ -1,0 +1,56 @@
+Open Eclipse:
+
+Launch the Eclipse IDE on your machine.
+Create a New Java Project:
+
+Go to File > New > Java Project.
+Enter a project name (e.g., ArrayListDemo) and click Finish.
+Create a New Java Class:
+
+Inside the newly created project, right-click on the src folder.
+Select New > Class.
+Enter the name of your class (e.g., ArrayListDemo) and check the option for public static void main(String[] args).
+Click Finish.
+Paste Your Code into the Class:
+
+Copy the contents of your afroz.java file.
+Paste it into the newly created class in Eclipse.
+Run the Program:
+
+Right-click anywhere in the code editor.
+Select Run As > Java Application.
+Enter Input in the Console:
+
+
+
+
+
+package afroz;
+import java.util.*;
+class afroz
+{
+static Scanner sc = new Scanner(System.in);
+static void al()
+{
+ArrayList<Integer> nums = new ArrayList<Integer>();
+System.out.println("ENTER NO OF ELEMENTS: ");
+int n=sc.nextInt();
+System.out.println("Enter the "+n+" elements");
+for(int i=0;i<n;i++)
+{
+int inp = sc.nextInt();
+nums.add(inp);
+}
+Iterator<Integer> it = nums.iterator();
+System.out.println("ARRAY IS\n");
+while(it.hasNext()) {
+System.out.println(it.next());
+}
+System.out.println(' ');
+}
+public static void main(String args[])
+{
+System.out.println(' ');
+al();
+}
+}

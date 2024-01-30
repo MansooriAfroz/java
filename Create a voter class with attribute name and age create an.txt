@@ -1,0 +1,63 @@
+5D) Create a voter class with attribute name and age create an
+exception check if age is less than 18 throw exception. Create and
+aspect illegalVoter with a method if the voter class throws exception
+the illegalVoter aspect method will run
+CODE:
+a. voter.java
+package something.pro4;
+import org.springframework.stereotype.Component;
+@Component
+public class voter {
+public void validate() throws Exception
+{
+int age=19;
+String name="Tony";
+if(age<18)
+{
+throw new Exception(name+" you are under age!");
+}
+else
+{
+System.out.println("Do vote "+name+" as your age is "+age);
+}
+}
+}
+49
+b. illegalvoter.java
+package something.pro4;
+import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Aspect;
+import
+org.springframework.context.annotation.EnableAspectJAutoProx y;
+import org.springframework.stereotype.Component;
+@Compon
+ent
+@Aspect
+@EnableAspectJAutoProxy
+public class illegalvoter {
+@AfterThrowing(pointcut="execution(*
+something.pro4.voter.*(..))",throwing = "ex") public void
+illegalVoter(Exception ex) throws Throwable
+{
+System.out.println("LoggingAspect.logAfterThrowingAllMethods () "+
+ex);
+}
+}
+c. app.java
+package something.pro4;
+import org.springframework.context.annotation.AnnotationConfigAppli
+cationContext;
+import org.springframework.context.support.AbstractApplicationConte
+xt;
+50
+public class App
+{
+public static void main( String[] args ) throws
+Exception
+{
+AbstractApplicationContext context = new
+AnnotationConfigApplicationContext(AppConfig.class); voter
+v=context.getBean("voter",voter.class); v.validate();
+}
+}
+OUTPUT:

@@ -1,0 +1,113 @@
+Q3C) Design loan calculator using JSP which accepts Period of Time
+(in years) and Principal Loan Amount. Display the payment amount for
+each loan and then list the loan balance and interest paid for each
+payment over the term of the loan for the following time period and
+interest rate:
+a. 1 to 7 year at 5.35%
+b. 8 to 15 year at 5.5%
+c. 16 to 30 year at 5.75%
+
+
+
+
+
+
+
+CODE:
+a) index.html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Loan Calculator</title>
+</head>
+<body>
+<form action = "new.jsp">
+<h3>Enter Principle Loan Amount</h3><input type="text"
+name='pri'/><br>
+<h3>Enter Time Period (IN YEARS)</h3><input type="text"
+name='ti'/><br><br>
+<input type="submit" value="CALCULATE"/>
+</form>
+</body>
+</html>
+b) cal.jsp
+<%@ page language="java" contentType="text/html;
+charset=ISO-8859-1"
+pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>LOAN CALCULATOR</title>
+</head>
+<body>
+26
+<%
+double p=Double.parseDouble(request.getParameter("pri"));
+int t=Integer.parseInt(request.getParameter("ti"));
+double ci;
+if(t<=7)
+{
+double n=5.35/1200;
+double temp=Math.pow(1+n,t*12);
+double emi=(p*n)*((temp)/(temp-1));
+double total=emi*12*t;
+ci=(total-p)/t;
+int ci2=0;
+out.print("<h3>EMI: RS."+(int)emi+"</h3><br>");
+out.print("<h3>TOTAL PAYMENT AMOUNT:
+RS."+(int)total+"</h3><br>");
+for(int i=1;i<=t;i++)
+{
+total=total-emi*12;
+ci2+=ci;
+out.print("<h3>YEAR "+i+" <br>LOAN BALANCE:
+RS."+(int)total+" <br>INTEREST PAID:
+RS."+(int)ci2+"</h3><br>");
+}
+}
+else if(t>=8 && t<=15)
+{
+double n=5.5/1200;
+double temp=Math.pow(1+n,t*12);
+double emi=(p*n)*((temp)/(temp-1));
+double total=emi*12*t;
+ci=(total-p)/t;
+int ci2=0;
+out.print("<h3>EMI: RS."+(int)emi+"</h3><br>");
+out.print("<h3>TOTAL PAYMENT AMOUNT:
+RS."+(int)total+"</h3><br>");
+for(int i=1;i<=t;i++)
+{
+total=total-emi*12;
+ci2+=ci;
+out.print("<h3>YEAR "+i+" <br>LOAN BALANCE:
+RS."+(int)total+" <br>INTEREST PAID:
+RS."+(int)ci2+"</h3><br>");
+27
+}
+}
+else
+{
+double n=5.75/1200;
+double temp=Math.pow(1+n,t*12);
+double emi=(p*n)*((temp)/(temp-1));
+double total=emi*12*t;
+ci=(total-p)/t;
+int ci2=0;
+out.print("<h3>EMI: RS."+(int)emi+"</h3><br>");
+out.print("<h3>TOTAL PAYMENT AMOUNT:
+RS."+(int)total+"</h3><br>");
+for(int i=1;i<=t;i++)
+{
+total=total-emi*12;
+ci2+=ci;
+out.print("<h3>YEAR "+i+" <br>LOAN BALANCE:
+RS."+(int)total+" <br>INTEREST PAID:
+RS."+(int)ci2+"</h3><br>");
+}
+}
+%>
+</body>
+</html>

@@ -1,0 +1,85 @@
+Step 1: Create a New Java Project
+Open Eclipse.
+Go to File > New > Java Project.
+Enter a project name (e.g., "ShapeProject").
+Click Finish.
+Step 2: Create Java Classes
+Shape Class (Shape.java):
+
+java
+Copy code
+package something;
+
+import java.util.Scanner;
+
+abstract class Shape {
+    Scanner sc = new Scanner(System.in);
+    abstract void area();
+}
+Circle Class (Circle.java):
+
+java
+Copy code
+package something;
+
+class Circle extends Shape {
+    int r;
+
+    Circle() {
+        System.out.println("Enter Radius of Circle: ");
+        r = sc.nextInt();
+    }
+
+    public void area() {
+        System.out.println("AREA OF CIRCLE: " + 3.14 * r * r);
+    }
+}
+Square Class (Square.java):
+
+java
+Copy code
+package something;
+
+class Square extends Shape {
+    int s;
+
+    Square() {
+        System.out.println("Enter Side of Square: ");
+        s = sc.nextInt();
+    }
+
+    public void area() {
+        System.out.println("AREA OF SQUARE: " + s * s);
+    }
+}
+BoundedShape Class (BoundedShape.java):
+
+java
+Copy code
+package something;
+
+class BoundedShape<T extends Shape> {
+    private T obj;
+
+    BoundedShape(T obj) {
+        this.obj = obj;
+    }
+
+    public void gotcha() {
+        this.obj.area();
+    }
+
+    public static void main(String args[]) {
+        BoundedShape<Circle> s = new BoundedShape<Circle>(new Circle());
+        s.gotcha();
+
+        BoundedShape<Square> t = new BoundedShape<Square>(new Square());
+        t.gotcha();
+    }
+}
+Step 3: Run the Program
+Open the BoundedShape.java file.
+
+Right-click inside the editor.
+
+Select Run As > Java Application

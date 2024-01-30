@@ -1,0 +1,37 @@
+1)Fahrenheit to celcius:
+
+
+
+package something;
+interface ftoc
+{
+public int convert(int c);
+}
+public class lamb {
+public static void main(String[] args)
+{
+ftoc s1=(c)->{
+return ((c-32)*5/9);
+};
+System.out.println("Value in celcius is:"+s1.convert(50));
+}
+}
+
+
+2) Kilometers to miles:
+CODE:
+package something;
+interface ktom
+{
+public double travel(double c);
+}
+public class lamb {
+public static void main(String[] args)
+{
+ktom a=(double c)->{
+return (c*0.6213);
+};
+System.out.println("Value in km to miles is:
+"+a.travel(5));
+}
+}

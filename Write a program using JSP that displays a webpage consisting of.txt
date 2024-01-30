@@ -1,0 +1,73 @@
+3D) Write a program using JSP that displays a webpage consisting of
+Application form for change of Study Center which can be filled by any
+student who wants to change his/ her study center. Make necessary
+assumptions:
+
+
+
+CODE:
+a) index.html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<form action = "change.jsp">
+<h2>Enter Your Name:</h2>
+<input type="text" name ='name'/><br>
+<br>
+<h2>Enter Your Roll Number:</h2>
+<input type="text" name ='roll'/><br>
+<br>
+<h2>Enter Your Course Name:</h2>
+<input type="text" name ='cor'/><br>
+<br>
+<h2>Select Your Present Study Center</h2>
+<select name="vak2">
+<option >MUMBAI</option>
+<option >KOCHI</option>
+<option >CHENNAI</option>
+<option >KANPUR</option>
+</select>
+<h2>Select The Study Center Preference You Want</h2>
+<select name="vak3">
+<option >MUMBAI</option>
+<option >KOCHI</option>
+<option >CHENNAI</option>
+<option >KANPUR</option>
+30
+</select>
+<br><br>
+<input type="submit" value="SUBMIT"/>
+</form>
+</body>
+</html>
+b) change.jsp
+<%@ page language="java" contentType="text/html;
+charset=ISO-8859-1"
+pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>CHAGNE OF DATA</title>
+</head>
+<body>
+<%
+String name=request.getParameter("name");
+String p1=request.getParameter("vak2");
+String p2=request.getParameter("vak3");
+String c = request.getParameter("cor");
+int roll=Integer.parseInt(request.getParameter("roll"));
+%>
+<%out.print("<h3>Your Name: "+name+"</h3>"); %>
+<%out.print("<h3>Your Roll No: "+roll+"</h3>"); %>
+<%out.print("<h3>Your Course Name: "+c+"</h3>"); %>
+<%out.print("<h3>Your Current Study Center: "+p1+"</h3>");
+%>
+<%out.print("<h3>Your Preference Of Study Center:
+"+p2+"</h3>"); %>
+</body>
+</html>

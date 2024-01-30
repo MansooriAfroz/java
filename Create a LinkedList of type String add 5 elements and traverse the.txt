@@ -1,0 +1,29 @@
+package something;
+import java.util.*;
+class BoundedShape
+{
+static Scanner sc = new Scanner(System.in);
+static void ll()
+{
+LinkedList<String> li = new LinkedList<String>();
+System.out.println("ENTER NO OF ELEMENTS: ");
+int n=sc.nextInt();
+System.out.println("Enter the "+n+" elements");
+for(int i=0;i<n;i++)
+{
+String inp = sc.next();
+li.add(inp);
+}
+System.out.println("LINK LIST IS\n");
+for(String i:li)
+{
+System.out.println(i);
+}
+System.out.println(' ');
+}
+public static void main(String args[])
+{
+System.out.println(' ');
+ll();
+}
+}

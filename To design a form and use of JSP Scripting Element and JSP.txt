@@ -1,0 +1,90 @@
+) To design a form and use of JSP Scripting Element and JSP
+Directive. Display Grade of a student by accepting marks in five
+subjects.
+CODE:
+index.html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<form action="find.jsp" method="POST">
+<h1>Enter Your Name:</h1><input type="text"
+name="name"><br>
+<h1>Enter Your Marks:</h1><br>
+<h2> MFCS: </h2><input type="text"
+name="mfcs"><br>
+<h2> AJAVA: </h2><input type="text"
+name="java"><br>
+<h2> ADBMS: </h2><input type="text"
+name="dbms"><br>
+<h2> SPM: </h2><input type="text"
+name="spm"><br>
+<h2> WTL: </h2><input type="text"
+name="wtl"><br>
+<br><br>
+<input type="submit" value="SUBMIT"/>
+</form>
+</body>
+</html>
+b) grade.jsp
+<%@ page language="java" contentType="text/html;
+charset=ISO-8859-1"
+pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+21
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<h1>YOUR GRADE</h1>
+<%
+String name=request.getParameter("name");
+int mfcs =
+Integer.parseInt(request.getParameter("mfcs"));
+int adbms =
+Integer.parseInt(request.getParameter("dbms"));
+int spm =
+Integer.parseInt(request.getParameter("spm"));
+int java =
+Integer.parseInt(request.getParameter("java"));
+int wtl =
+Integer.parseInt(request.getParameter("wtl"));
+int percent;
+percent=(mfcs+adbms+spm+java+wtl)/5;
+%>
+<h1><%out.println("Name: "+name);%></h1>
+<h2>YOUR GRADE IS: </h2>
+<%
+if(percent<40){
+%>
+<h1>F</h1>
+<%}
+else if(percent>=40&&percent<50){
+%>
+<h1>D</h1>
+<% }
+else if(percent>=50 && percent<60){
+%>
+<h1>B</h1>
+<%}
+else if(percent>=60 && percent<70){
+%>
+<h1>A</h1>
+<% }
+else if(percent>=70 && percent<80){
+%>
+<h1>A+</h1>
+<% }
+22
+else{
+%>
+<h1>O</h1>
+<%}
+%>
+</body>
+</html>

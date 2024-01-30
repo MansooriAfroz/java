@@ -1,0 +1,64 @@
+package something;
+import java.util.*;
+
+class prac {
+    static class emp {
+        int id;
+        String name;
+        Double sal;
+
+        emp(int id, String name, Double sal) {
+            this.id = id;
+            this.name = name;
+            this.sal = sal;
+        }
+    }
+
+    static Scanner sc = new Scanner(System.in);
+    static ArrayList<emp> data = new ArrayList<emp>();
+
+    static void add() {
+        System.out.println("Enter Details Of Employee");
+        System.out.print("ID : ");
+        int id1 = sc.nextInt();
+        System.out.print("NAME : ");
+        String name1 = sc.next();
+        System.out.print("SALARY : ");
+        Double salary1 = sc.nextDouble();
+        data.add(new emp(id1, name1, salary1));
+    }
+
+    static void pri() {
+        for (int j = 0; j < data.size(); j++) {
+            emp e = data.get(j);
+            System.out.println(e.id);
+            System.out.println(e.name);
+            System.out.println(e.sal);
+        }
+    }
+
+    static void remov() {
+        System.out.println("Enter the index");
+        int inde = sc.nextInt();
+        data.remove(inde);
+        System.out.println("Arraylist after removing data!");
+        pri();
+    }
+
+    public static void main(String args[]) {
+        while (true) {
+            System.out.println(" ");
+            System.out.println("Enter the no: \n 1)ADD \n 2)Print\n 3)Remove");
+            int ip = sc.nextInt();
+            if (ip == 1) {
+                add();
+            } else if (ip == 2) {
+                pri();
+            } else if (ip == 3) {
+                remov();
+            } else {
+                break;
+            }
+        }
+    }
+}

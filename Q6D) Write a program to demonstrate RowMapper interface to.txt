@@ -1,0 +1,104 @@
+Q6D) Write a program to demonstrate RowMapper interface to
+fetch the records from the database:
+CODE:
+a. App.java:
+package something.datapro4;
+import java.util.List;
+import org.springframework.context.ApplicationContext;
+import
+org.springframework.context.support.ClassPathXmlApplicati
+onC ontext;
+public class App
+{
+public static void main( String[] args )
+{
+ApplicationContext context =new
+ClassPathXmlApplicationContext("dbd.xml");
+employeetemp et =
+(employeetemp)context.getBean("employeejdbctemp");
+System.out.println("Listing Records Using Row Mapper"
+);
+List<employee> employees =
+et.listEmployeesWithRowMapper();
+for (employee record : employees) {
+System.out.print("ID : " + record.getId() );
+System.out.print(", Name : " + record.getName() );
+System.out.println(", Age : " + record.getAge());
+}
+}
+69
+}
+b. Employeetemp.java:
+package
+something.datapro4; import
+java.sql.PreparedStatement
+; import
+java.sql.SQLException;
+import java.util.ArrayList;
+import
+java.util.List;
+import
+java.sql.ResultSe
+t;
+import javax.sql.DataSource;
+import
+org.springframework.jdbc.core.JdbcTemplate;
+import
+org.springframework.dao.DataAccessException;
+import
+org.springframework.jdbc.core.ResultSetExtracto
+r;
+70
+import
+org.springframework.jdbc.core.PreparedStatementCallback
+; public class employeetemp implements EmployeeDao {
+private DataSource dataSource;
+private JdbcTemplate
+jdbcTemplateObject; public String
+name;
+public Integer age;
+public void setDataSource(DataSource dataSource) {
+this.dataSource = dataSource;
+this.jdbcTemplateObject = new JdbcTemplate(dataSource);
+}
+public List<employee>
+listEmployeesWithRowMapper() { String SQL =
+"select * from employee_27";
+List <employee> employees = jdbcTemplateObject.query(SQL, new
+EmployeeRowMaper());
+return employees;
+}
+}
+71
+c. EmployeeRowMaper.java:
+package something.datapro4;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import org.springframework.jdbc.core.RowMapper;
+public class EmployeeRowMaper implements RowMapper<employee>
+{
+public employee mapRow(ResultSet rs, int rowNum) throws
+SQLException {
+System.out.println("Row mapper
+called"); employee employee = new
+employee();
+employee.setId(rs.getInt("id"));
+employee.setName(rs.getString("nam
+e"));
+employee.setAge(rs.getInt("age"));
+return employee;
+}
+}
+d. EmployeeDao.java:
+package something.datapro4;
+import java.util.List;
+import javax.sql.DataSource;
+import
+org.springframework.jdbc.core.JdbcTemplat
+e; public interface EmployeeDao {
+72
+public void
+setDataSource(DataSource ds);
+public List<employee>
+listEmployeesWithRowMapper();
+}

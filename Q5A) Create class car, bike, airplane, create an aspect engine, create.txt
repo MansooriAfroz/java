@@ -1,0 +1,90 @@
+Q5A) Create class car, bike, airplane, create an aspect engine, create
+method drive() in car, ride() in bike, fly in airplane, the engine aspect
+has method enginestart() and enginestop(). When you run the
+application the enginestart() method should execute before drive(),
+ride() and fly() a enginestop() method should run after drive(), ride() and
+fly().
+
+
+
+
+CODE:
+a. car.java
+package some.pro1;
+import org.springframework.stereotype.Component;
+@Component
+public class car {
+public void drive()
+{
+System.out.println("CAR STARTED DRIVING");
+}
+}
+b. bike.java
+package some.pro1;
+import org.springframework.stereotype.Component;
+@Component
+public class bike {
+public void ride()
+{
+System.out.println("Biker riding bike");
+}
+}
+39
+c. airplane.java
+package some.pro1;
+import org.springframework.stereotype.Component;
+@Component
+public class airplane {
+public void fly()
+{
+System.out.println("Airplane flying");
+}
+}
+d. engine.java
+package some.pro1;
+import org.aspectj.lang.annotation.After; import
+org.aspectj.lang.annotation.Before; import
+org.aspectj.lang.annotation.Aspect; import
+org.springframework.context.annotation.EnableAspectJAutoProx y;
+import org.springframework.stereotype.Component;
+@Compon
+ent
+@Aspect
+@EnableAspectJAutoProxy
+public class engine { @Before("execution(public void
+drive())")
+public void enginestart()
+{
+System.out.println("Enigine started");
+}
+@After("execution(public void fly())")
+public void enginestop()
+{
+40
+System.out.println("Enigine stopped");
+}
+}
+e. app.java
+package some.pro1;
+import
+org.springframework.context.annotation.AnnotationConfigApplica
+tionCo ntext;
+import
+org.springframework.context.support.AbstractApplicationContext
+;
+public class App
+{
+public static void main( String[] args )
+{
+AbstractApplicationContext context = new
+AnnotationConfigApplicationContext(AppConfi
+g.class); car c =
+context.getBean("car",car.class);
+c.drive();
+bike b = context.getBean("bike",bike.class);
+b.ride();
+airplane a =
+context.getBean("airplane",airplane.class); a.fly();
+}
+41
+}

@@ -1,0 +1,155 @@
+Q6B) Write a program to demonstrate PreparedStatement in Spring
+JdbcTemplate.
+CODE:
+a. employee.java
+package something.datapro2;
+public class employee
+{ private Integer
+age; private
+String name;
+private Integer id;
+public
+employee(){}
+public employee(String name,Integer id, Integer age) {
+this.id = id;
+this.name =
+name;
+this.age=age;
+}
+public void setAge(Integer age) {
+this.age = age;
+}
+public Integer getAge() {
+return age;
+}
+public void setName(String name) {
+this.name = name;
+}
+public String getName() {
+return name;
+58
+}
+public void setId(Integer id) {
+this.id = id;
+}
+public Integer getId() {
+return id;
+}
+}
+b. employeetemp.java
+package something.datapro2;
+import
+java.sql.PreparedStatement;
+import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import
+java.sql.ResultSet;
+import
+javax.sql.DataSource;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.dao.DataAccessException;
+import
+org.springframework.jdbc.core.ResultSetExtractor;
+import
+org.springframework.jdbc.core.PreparedStatementCallba
+ck; public class employeetemp implements
+EmployeeDao { private DataSource dataSource;
+private JdbcTemplate jdbcTemplateObject;
+public void setDataSource(DataSource dataSource) {
+this.dataSource = dataSource;
+this.jdbcTemplateObject = new JdbcTemplate(dataSource);
+59
+}
+public Boolean insertPreparedStatmentEmployee(final employee
+e){
+String query="insert into employee_27 (id,name, age) values (?,?,?)";
+return jdbcTemplateObject.execute(query,new
+PreparedStatementCallback<Boolean>(){
+public Boolean doInPreparedStatement(PreparedStatement ps)
+throws SQLException, DataAccessException {
+ps.setInt(1,e.getId());
+ps.setString(2,e.getName()); ps.setInt(3,e.getAge());
+System.out.println("Records Inserted Using
+Prepared Statment");
+return ps.execute();
+}
+});
+}
+@Override
+public void insert(Integer id,String name, Integer age) {
+// TODO Auto-generated method stub
+}
+@Override
+public void update(Integer id, String name, Integer age) {
+// TODO Auto-generated method stub
+}
+@Override
+public void delete(Integer id) {
+// TODO Auto-generated method stub
+}}
+C. EmployeeDao.java
+package something.datapro2;
+60
+import java.util.List;
+import javax.sql.DataSource;
+import org.springframework.jdbc.core.JdbcTemplate;
+public interface EmployeeDao {
+public void setDataSource(DataSource ds);
+public void insert(Integer id,String name, Integer age);
+public void update(Integer id,String name,Integer age);
+public void delete(Integer id);
+}
+d. App.java
+package something.datapro2;
+import java.util.List;
+import org.springframework.context.ApplicationContext;
+import
+org.springframework.context.support.ClassPathXmlApplicati
+onC ontext;
+public class App
+{
+public static void main( String[] args )
+{
+ApplicationContext context =new
+ClassPathXmlApplicationContext("dbd.xml");
+employeetemp et =
+(employeetemp)context.getBean("employeejdbctemp");
+System.out.println("Prepared Statement
+Example");
+employee e = (employee)
+61
+context.getBean("employee");
+et.insertPreparedStatmentEmployee(e);
+}
+}
+e. dbd.xml
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+xmlns="http://www.springframework.org/schema/beans"
+xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+xsi:schemaLocation="http://www.springframework.org/schem
+a/be ans
+http://www.springframework.org/schema/beans/spring-beans-
+3.0.xsd ">
+<bean id="dataSource"
+class="org.springframework.jdbc.datasource.DriverManagerDa
+ta Source">
+<property name="driverClassName"
+value="com.mysql.jdbc.Driver"/>
+<property name="url"
+value="jdbc:mysql://localhost:3306/java"/>
+<property name="username" value="COOLBOy"/>
+<property name="password" value="hailhydra"/>
+</bean>
+<bean id="employeejdbctemp"
+class="something.datapro2.employeetemp">
+<property name="dataSource" ref="dataSource" />
+</bean>
+<bean id="employee" class="something.datapro2.employee">
+<property name="id" value="3"></property>
+<property name="name" value="Natasha"></property>
+<property name="age" value="25"></property>
+</bean>
+</beans>
+62

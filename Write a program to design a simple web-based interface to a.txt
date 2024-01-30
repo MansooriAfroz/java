@@ -1,0 +1,52 @@
+Write a program to design a simple web-based interface to a
+currency converter application. The interface should consist of a title,
+suitable instructions, and a form for entering the amount to be
+converted and an optional currency rate. Use text fields for entering the
+amount and rate.
+
+
+
+
+CODE:
+A)index.html
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>CURRENCY CONVERTER</title>
+</head>
+<body>
+<form method="post" action="lol.jsp">
+<h3>Enter the Value:</h3>
+<input type="text" name="va" /><br>
+<h3>Enter the rate of currency you want to convert
+into</h3>
+<input type="text" name="re"/><br><br>
+<input type="submit" value="CONVERT" /> <br>
+</form>
+</body>
+</html>
+b) conv.jsp
+<%@ page language="java" contentType="text/html;
+charset=ISO-8859-1"
+pageEncoding="ISO-8859-1"%>
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Insert title here</title>
+</head>
+<body>
+<%
+int v = Integer.parseInt(request.getParameter("va"));
+int r = Integer.parseInt(request.getParameter("re"));
+out.print("<h2>VALUE IN CURRENT CURRENCY: "+v+"</h2>");
+out.print("<h2>RATE OF CURRENCY YOU WANT TO CONVERT:
+"+r+"</h2>");
+out.print("<h2>CONVERTED VALUE IN OTHER CURRENCY:
+"+r*v+"</h2>");
+%>
+24
+</body>
+</html>
+OUTPUT:
